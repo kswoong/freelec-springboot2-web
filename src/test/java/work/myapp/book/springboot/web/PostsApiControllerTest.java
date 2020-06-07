@@ -11,6 +11,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import static org.springframework.security.test.web.servlet.setup;
 import org.springframework.test.context.junit4.SpringRunner;
 import work.myapp.book.springboot.domain.posts.Posts;
 import work.myapp.book.springboot.domain.posts.PostsRepository;
@@ -39,6 +45,7 @@ public class PostsApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles="USER")
     public void Posts_saved() throws Exception {
         String title = "title";
         String content = "content";
@@ -64,6 +71,7 @@ public class PostsApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles="USER")
     public void Posts_updated() throws Exception {
         Posts savedPosts = postsRepository.save(Posts.builder()
                 .title("title")
